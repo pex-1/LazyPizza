@@ -22,8 +22,8 @@ import com.example.lazypizza.core.presentation.theme.gradientColors
 fun LazyPizzaPrimaryButton(
     modifier: Modifier = Modifier,
     buttonText: String,
-    onClick: () -> Unit,
-    isLoading: Boolean = false
+    isLoading: Boolean = false,
+    onClick: () -> Unit
 ) {
     val buttonShadow = MaterialTheme.colorScheme.primary
     Button(

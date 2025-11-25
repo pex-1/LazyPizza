@@ -44,3 +44,11 @@ val History: ImageVector
 val BackArrow: ImageVector
     @Composable
     get() = ImageVector.vectorResource(R.drawable.ic_back_arrow)
+
+val User: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(R.drawable.ic_user)
+
+val Logout: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(R.drawable.ic_log_out)

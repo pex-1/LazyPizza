@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">LazyPizza</string>
+
+    # Main App Bar
+    <string name="pizza_icon">Pizza icon</string>
+    <string name="phone_icon">Phone icon</string>
+    <string name="logout_user_icon">Logout/User icon</string>
+    <string name="lazy_pizza">LazyPizza</string>
+    <string name="app_bar_phone_number">+1 (555) 321-7890</string>
+
+    # Log Out Dialog
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want\nto log out?</string>
+    <string name="log_out">Log Out</string>
+    <string name="cancel">Cancel</string>
 </resources>

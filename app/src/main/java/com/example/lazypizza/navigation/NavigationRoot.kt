@@ -6,6 +6,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -29,6 +30,7 @@ import com.example.lazypizza.feature.cart.components.CartTopBar
 import com.example.lazypizza.feature.history.HistoryScreenRoot
 import com.example.lazypizza.feature.history.components.HistoryTopBar
 import com.example.lazypizza.feature.maincatalog.MainCatalogScreenRoot
+import com.example.lazypizza.feature.maincatalog.components.LogoutDialog
 import com.example.lazypizza.feature.maincatalog.components.MainCatalogTopBar
 import com.example.lazypizza.feature.productdetails.ProductDetailScreenRoot
 import com.example.lazypizza.feature.productdetails.components.ProductDetailTopBar
@@ -57,6 +59,19 @@ fun NavigationRoot(
     val backStack = rememberNavBackStack(MainCatalog)
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    val showDialog = remember { mutableStateOf(false) }
+
+    if (showDialog.value) {
+        LogoutDialog(
+            onDismissRequest = {
+                showDialog.value = false
+            },
+            onConfirmation = {
+
+            }
+        )
+    }
 
     ObserveAsEvents(
         SnackbarController.events,
@@ -138,7 +153,9 @@ fun NavigationRoot(
             entryProvider = entryProvider {
                 entry<MainCatalog> {
                     LazyPizzaBaseScreen(snackbarHostState = snackbarHostState, topAppBar = {
-                        MainCatalogTopBar()
+                        MainCatalogTopBar() {
+                            showDialog.value = true
+                        }
                     }) {
                         MainCatalogScreenRoot(deviceConfiguration = deviceConfiguration) {
                             backStack.add(ProductDetails(it))
