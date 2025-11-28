@@ -45,6 +45,14 @@ val body1medium = TextStyle(
     color = textPrimary
 )
 
+val body2regular = TextStyle(
+    fontFamily = InstrumentSans,
+    fontWeight = FontWeight.Normal,
+    fontSize = 15.sp,
+    lineHeight = 22.sp,
+    color = textSecondary
+)
+
 val body3regular = TextStyle(
     fontFamily = InstrumentSans,
     fontWeight = FontWeight.Normal,

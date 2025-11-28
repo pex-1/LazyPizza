@@ -17,16 +17,23 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import timber.log.Timber
+import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val cartRepository: CartRepository,
-    userData: UserData,
+    private val userData: UserData,
 ) : ViewModel() {
     private val _state = MutableStateFlow(MainState())
     val state = _state.asStateFlow()
 
     init {
+        userData.getIsLoggedIn()
+            .onEach { isLoggedIn ->
+                _state.update {
+                    it.copy(userLoggedIn = isLoggedIn)
+                }
+            }
+            .launchIn(viewModelScope)
         userData
             .getCartId()
             .distinctUntilChanged()
@@ -41,6 +48,7 @@ class MainViewModel(
                                 is FirebaseResult.Success -> {
                                     result.data.size
                                 }
+
                                 is FirebaseResult.Error -> 0
                             }
                         }
@@ -53,5 +61,19 @@ class MainViewModel(
                 }
             }
             .launchIn(viewModelScope)
+    }
+
+    fun onAction(action: MainAction) {
+        when (action) {
+            is MainAction.OnLogoutAction -> {
+                viewModelScope.launch {
+                    userData.setIsLoggedIn(false)
+                    _state.update {
+                        it.copy(userLoggedOut = true)
+                    }
+                }
+            }
+        }
+
     }
 }

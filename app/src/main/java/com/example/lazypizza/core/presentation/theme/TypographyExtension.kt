@@ -10,6 +10,7 @@ import androidx.compose.ui.text.TextStyle
 data class CustomTypography(
     val body1regular: TextStyle = TextStyle.Default,
     val body1medium: TextStyle = TextStyle.Default,
+    val body2regular: TextStyle = TextStyle.Default,
     val body3regular: TextStyle = TextStyle.Default,
     val body3medium: TextStyle = TextStyle.Default,
     val body4regular: TextStyle = TextStyle.Default,

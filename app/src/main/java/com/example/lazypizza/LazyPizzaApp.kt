@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.pm.ApplicationInfo
 import com.example.lazypizza.core.di.dataRepository
 import com.example.lazypizza.di.appModule
+import com.example.lazypizza.feature.authentication.di.authenticationModule
 import com.example.lazypizza.feature.cart.di.cartDataModule
 import com.example.lazypizza.feature.history.di.historyModule
 import com.example.lazypizza.feature.maincatalog.di.mainCatalogModule
@@ -31,7 +32,8 @@ class LazyPizzaApp : Application() {
                 productDetailsModule,
                 dataRepository,
                 cartDataModule,
-                historyModule
+                historyModule,
+                authenticationModule
             )
         }
     }

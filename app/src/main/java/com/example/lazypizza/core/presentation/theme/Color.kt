@@ -1,6 +1,6 @@
 package com.example.lazypizza.core.presentation.theme
 
-import androidx.compose.material3.ColorScheme
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val textPrimary = Color(0xFF03131F)
@@ -16,6 +16,13 @@ val primary = Color(0xFFF36B50)
 val primary8 = Color(0x14F36B50)
 val gradientStart = Color(0xFFF9966F)
 val gradientEnd = Color(0xFFF36B50)
+val primaryGradient = Brush.linearGradient(
+    listOf(
+        gradientStart,
+        gradientEnd
+    )
+)
 
-val ColorScheme.success: Color
-    get() = Color(0xFF2F9E5A)
+val success = Color(0xFF2F9E5A)
+
+val warning = Color(0xFFF9A825)

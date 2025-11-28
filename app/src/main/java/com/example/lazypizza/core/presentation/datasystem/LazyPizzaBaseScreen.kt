@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.lazypizza.core.presentation.theme.success
+import com.example.lazypizza.core.presentation.theme.textOnPrimary
 import com.example.lazypizza.core.presentation.theme.textPrimary
 
 @Composable
@@ -37,11 +37,11 @@ fun LazyPizzaBaseScreen(
                 snackbar = {
                     Snackbar(
                         it,
-                        containerColor = MaterialTheme.colorScheme.success,
-                        contentColor = textPrimary,
-                        actionContentColor = textPrimary,
-                        dismissActionContentColor = textPrimary,
-                        actionColor = textPrimary,
+                        containerColor = textPrimary,
+                        contentColor = textOnPrimary,
+                        actionContentColor = textOnPrimary,
+                        dismissActionContentColor = textOnPrimary,
+                        actionColor = textOnPrimary,
                         shape = RoundedCornerShape(8.dp)
                     )
                 }

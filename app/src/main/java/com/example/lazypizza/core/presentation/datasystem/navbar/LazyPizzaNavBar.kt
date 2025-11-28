@@ -92,12 +92,12 @@ fun LazyPizzaMenuBar(
                             badge = {
                                 if (itemCount > 0) {
                                     Badge(
-                                        containerColor = MaterialTheme.colorScheme.primary,
-                                        contentColor = textOnPrimary
+                                        containerColor = MaterialTheme.colorScheme.primary
                                     ) {
                                         Text(
                                             text = "$itemCount",
                                             style = MaterialTheme.typography.labelSmall,
+                                            color = textOnPrimary
                                         )
                                     }
                                 }

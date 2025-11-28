@@ -2,6 +2,7 @@ package com.example.lazypizza.core.data
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.lazypizza.core.domain.userdata.UserData
@@ -17,9 +18,21 @@ class UserDataDataStore(
         }
     }
 
+    override fun getIsLoggedIn(): Flow<Boolean> {
+        return dataStore.data.map {
+            it[USER_ID_KEY] ?: false
+        }
+    }
+
     override suspend fun setCardId(cartId: String) {
         dataStore.edit { preferences ->
             preferences[CART_ID_KEY] = cartId
+        }
+    }
+
+    override suspend fun setIsLoggedIn(loggedIn: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[USER_ID_KEY] = loggedIn
         }
     }
 
@@ -31,5 +44,6 @@ class UserDataDataStore(
 
     companion object {
         private val CART_ID_KEY = stringPreferencesKey("cart_id")
+        private val USER_ID_KEY = booleanPreferencesKey("user_id")
     }
 }

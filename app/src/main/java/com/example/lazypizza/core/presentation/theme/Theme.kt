@@ -23,6 +23,7 @@ fun LazyPizzaTheme(
     val customTypography = CustomTypography(
         body1regular = body1regular,
         body1medium = body1medium,
+        body2regular = body2regular,
         body3regular = body3regular,
         body3medium = body3medium,
         body4regular = body4regular
