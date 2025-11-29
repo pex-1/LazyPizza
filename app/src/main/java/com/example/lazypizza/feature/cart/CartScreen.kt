@@ -34,12 +34,12 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.lazypizza.core.presentation.datasystem.buttons.LazyPizzaPrimaryButton
 import com.example.lazypizza.core.presentation.datasystem.cards.ProductCard
+import com.example.lazypizza.core.presentation.datasystem.cards.ToppingCard
 import com.example.lazypizza.core.presentation.theme.LazyPizzaTheme
 import com.example.lazypizza.core.presentation.theme.surfaceHigher
 import com.example.lazypizza.core.presentation.util.DeviceConfiguration
 import com.example.lazypizza.core.presentation.util.ObserveAsEvents
 import com.example.lazypizza.core.presentation.util.formatToPrice
-import com.example.lazypizza.feature.cart.components.CartToppingCard
 import com.example.lazypizza.feature.cart.components.EmptyStateCart
 import com.example.lazypizza.feature.cart.components.LoadingComponent
 import org.koin.androidx.compose.koinViewModel
@@ -48,7 +48,8 @@ import org.koin.androidx.compose.koinViewModel
 fun CartScreenRoot(
     viewModel: CartViewModel = koinViewModel(),
     onNavigateToMenu: () -> Unit = {},
-    deviceConfiguration: DeviceConfiguration
+    deviceConfiguration: DeviceConfiguration,
+    onProceedToCheckoutClick: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -74,7 +75,12 @@ fun CartScreenRoot(
 
     CartScreen(
         state = state,
-        onAction = viewModel::onAction,
+        onAction = { action ->
+            when (action) {
+                is CartActions.OnProceedToCheckoutClick -> onProceedToCheckoutClick()
+                else -> viewModel.onAction(action)
+            }
+        },
         deviceConfiguration = deviceConfiguration
     )
 
@@ -180,7 +186,7 @@ private fun TabletCartScreenUI(
                                 contentPadding = PaddingValues(horizontal = 8.dp)
                             ) {
                                 items(state.recommendedItems) { recommendedItem ->
-                                    CartToppingCard(
+                                    ToppingCard(
                                         imageUrl = recommendedItem.image,
                                         cartItem = recommendedItem,
                                         onClick = {
@@ -204,7 +210,9 @@ private fun TabletCartScreenUI(
                         LazyPizzaPrimaryButton(
                             modifier = Modifier.fillMaxWidth(),
                             buttonText = "Proceed to Checkout (${totalPrice.formatToPrice()})",
-                            onClick = {  }
+                            onClick = {
+                                onAction(CartActions.OnProceedToCheckoutClick)
+                            }
                         )
                     }
                 }
@@ -284,7 +292,7 @@ private fun MobileCartScreenUI(
                                 contentPadding = PaddingValues(horizontal = 8.dp)
                             ) {
                                 itemsIndexed(state.recommendedItems) { index, recommendedItem ->
-                                    CartToppingCard(
+                                    ToppingCard(
                                         imageUrl = recommendedItem.image,
                                         cartItem = recommendedItem,
                                         onClick = {
@@ -325,7 +333,9 @@ private fun MobileCartScreenUI(
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 24.dp),
                     buttonText = "Proceed to Checkout ($${totalPrice.formatToPrice()})",
-                    onClick = { /* Checkout click */ }
+                    onClick = {
+                        onAction(CartActions.OnProceedToCheckoutClick)
+                    }
                 )
             }
         }
@@ -337,7 +347,7 @@ private fun MobileCartScreenUI(
 private fun CartScreenPreview() {
     LazyPizzaTheme {
         CartScreen(
-            state = CartState(isLoading = true),
+            state = CartState(isLoading = false),
             deviceConfiguration = DeviceConfiguration.MOBILE_PORTRAIT
         )
     }

@@ -48,8 +48,8 @@ fun ProductCard(
     productPrice: Double,
     quantity: Int,
     extraToppings: List<String> = emptyList(),
-    onQuantityChange: (Int) -> Unit,
-    onDeleteClicked: () -> Unit
+    onQuantityChange: (Int) -> Unit= {},
+    onDeleteClicked: () -> Unit= {}
 ) {
     Row(
         modifier = modifier

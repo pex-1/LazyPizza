@@ -8,6 +8,7 @@ import com.example.lazypizza.feature.authentication.di.authenticationModule
 import com.example.lazypizza.feature.cart.di.cartDataModule
 import com.example.lazypizza.feature.history.di.historyModule
 import com.example.lazypizza.feature.maincatalog.di.mainCatalogModule
+import com.example.lazypizza.feature.ordercheckout.di.orderCheckoutModule
 import com.example.lazypizza.feature.productdetails.di.productDetailsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -33,7 +34,8 @@ class LazyPizzaApp : Application() {
                 dataRepository,
                 cartDataModule,
                 historyModule,
-                authenticationModule
+                authenticationModule,
+                orderCheckoutModule
             )
         }
     }

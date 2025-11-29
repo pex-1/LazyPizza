@@ -34,6 +34,10 @@ import com.example.lazypizza.feature.history.components.HistoryTopBar
 import com.example.lazypizza.feature.maincatalog.MainCatalogScreenRoot
 import com.example.lazypizza.feature.maincatalog.components.LogoutDialog
 import com.example.lazypizza.feature.maincatalog.components.MainCatalogTopBar
+import com.example.lazypizza.feature.ordercheckout.OrderCheckoutScreenRoot
+import com.example.lazypizza.feature.ordercheckout.components.OrderCheckoutTopBar
+import com.example.lazypizza.feature.orderconfirmation.OrderConfirmationScreenRoot
+import com.example.lazypizza.feature.orderconfirmation.components.OrderConfirmationTopAppBar
 import com.example.lazypizza.feature.productdetails.ProductDetailScreenRoot
 import com.example.lazypizza.feature.productdetails.components.ProductDetailTopBar
 import kotlinx.coroutines.launch
@@ -56,6 +60,11 @@ data class ProductDetails(val id: String) : NavKey
 @Serializable
 data object AuthenticationScreen : NavKey
 
+@Serializable
+data object OrderCheckoutScreen : NavKey
+
+@Serializable
+data class OrderConfirmationScreen(val time: String, val id: Int) : NavKey
 
 @Composable
 fun NavigationRoot(
@@ -113,8 +122,11 @@ fun NavigationRoot(
         else -> NavigationMenu.HOME // Default case
     }
 
-    val hideMenu = backStack.lastOrNull() is ProductDetails ||
-            backStack.lastOrNull() is AuthenticationScreen
+    val hideMenu = when (backStack.lastOrNull()) {
+        is ProductDetails, is AuthenticationScreen,
+        is OrderCheckoutScreen, is OrderConfirmationScreen -> true
+        else -> false
+    }
     LaunchedEffect(hideMenu) {
         if (hideMenu) {
             suiteScaffoldState.hide()
@@ -205,7 +217,9 @@ fun NavigationRoot(
                     LazyPizzaBaseScreen(snackbarHostState = snackbarHostState, topAppBar = {
                         CartTopBar(deviceConfiguration = deviceConfiguration)
                     }) {
-                        CartScreenRoot(deviceConfiguration = deviceConfiguration)
+                        CartScreenRoot(deviceConfiguration = deviceConfiguration) {
+                            backStack.add(OrderCheckoutScreen)
+                        }
                     }
                 }
 
@@ -215,6 +229,38 @@ fun NavigationRoot(
                     }) {
                         HistoryScreenRoot(deviceConfiguration = deviceConfiguration) {
                             backStack.add(AuthenticationScreen)
+                        }
+                    }
+                }
+
+                entry<OrderCheckoutScreen> {
+                    LazyPizzaBaseScreen(snackbarHostState = snackbarHostState, topAppBar = {
+                        OrderCheckoutTopBar(
+                            onBackClicked = {
+                                backStack.removeLastOrNull()
+                            }
+                        )
+                    }) {
+                        OrderCheckoutScreenRoot(deviceConfiguration = deviceConfiguration) { time, orderNumber ->
+                            backStack.add(OrderConfirmationScreen(time, orderNumber))
+                        }
+                    }
+                }
+
+                entry<OrderConfirmationScreen> {
+                    LazyPizzaBaseScreen(snackbarHostState = snackbarHostState, topAppBar = {
+                        OrderConfirmationTopAppBar(
+                            onBackClicked = {
+                                backStack.removeLastOrNull()
+                            }
+                        )
+                    }) {
+                        OrderConfirmationScreenRoot(
+                            time = it.time,
+                            orderNumber = it.id
+                        ) {
+                            backStack.clear()
+                            backStack.add(MainCatalog)
                         }
                     }
                 }

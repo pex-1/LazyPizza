@@ -68,9 +68,6 @@ class MainViewModel(
             is MainAction.OnLogoutAction -> {
                 viewModelScope.launch {
                     userData.setIsLoggedIn(false)
-                    _state.update {
-                        it.copy(userLoggedOut = true)
-                    }
                 }
             }
         }

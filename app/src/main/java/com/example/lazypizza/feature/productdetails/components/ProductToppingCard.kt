@@ -1,4 +1,4 @@
-package com.example.lazypizza.core.presentation.datasystem.cards
+package com.example.lazypizza.feature.productdetails.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -25,9 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -38,12 +36,10 @@ import com.example.lazypizza.core.presentation.theme.customTypography
 import com.example.lazypizza.core.presentation.theme.outline50
 import com.example.lazypizza.core.presentation.theme.primary
 import com.example.lazypizza.core.presentation.theme.primary8
-import com.example.lazypizza.core.presentation.theme.textPrimary
-import com.example.lazypizza.core.presentation.theme.textSecondary
 import com.example.lazypizza.core.presentation.util.formatToPrice
 
 @Composable
-fun ToppingCard(
+fun ProductToppingCard(
     imageUrl: String,
     toppingName: String,
     toppingPrice: Double,
@@ -168,7 +164,7 @@ fun ToppingCard(
 @Composable
 private fun ToppingCardPreview() {
     LazyPizzaTheme {
-        ToppingCard(
+        ProductToppingCard(
             imageUrl = "",
             toppingName = "Sauce",
             toppingPrice = 1.00,

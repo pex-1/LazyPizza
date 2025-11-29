@@ -11,7 +11,8 @@ private val LightColorScheme = lightColorScheme(
     background = background,
     surfaceContainerHigh = surfaceHigher,
     surfaceContainerHighest = surfaceHighest,
-    outline = outline
+    outline = outline,
+    surface = surfaceHigher
 )
 
 @Composable

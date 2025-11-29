@@ -37,7 +37,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.lazypizza.core.model.Product
 import com.example.lazypizza.core.presentation.datasystem.buttons.LazyPizzaPrimaryButton
-import com.example.lazypizza.core.presentation.datasystem.cards.ToppingCard
 import com.example.lazypizza.core.presentation.theme.LazyPizzaTheme
 import com.example.lazypizza.core.presentation.theme.customTypography
 import com.example.lazypizza.core.presentation.util.formatToPrice
@@ -137,7 +136,7 @@ internal fun ProductDetailMobile(
                         items = state.listExtraToppings,
                         key = { it.name }
                     ) { topping ->
-                        ToppingCard(
+                        ProductToppingCard(
                             imageUrl = topping.image,
                             toppingName = topping.name,
                             toppingPrice = topping.price,

@@ -1,4 +1,4 @@
-package com.example.lazypizza.feature.cart.components
+package com.example.lazypizza.core.presentation.datasystem.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,7 +33,7 @@ import com.example.lazypizza.core.presentation.theme.primary
 import com.example.lazypizza.core.presentation.util.formatToPrice
 
 @Composable
-internal fun CartToppingCard(
+internal fun ToppingCard(
     modifier: Modifier = Modifier,
     imageUrl: String,
     onClick: () -> Unit,
@@ -114,7 +114,7 @@ internal fun CartToppingCard(
 @Preview
 @Composable
 private fun CartToppingCardPreview() {
-    CartToppingCard(
+    ToppingCard(
         modifier = Modifier,
         imageUrl = "",
         onClick = {},

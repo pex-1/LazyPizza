@@ -74,6 +74,6 @@ internal fun ProductDetailScreen(
 @Composable
 private fun ProductDetailScreenPreview() {
     LazyPizzaTheme {
-        ProductDetailScreen(deviceConfiguration = DeviceConfiguration.TABLET_PORTRAIT)
+        ProductDetailScreen(deviceConfiguration = DeviceConfiguration.MOBILE_PORTRAIT)
     }
 }

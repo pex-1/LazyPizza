@@ -62,7 +62,7 @@ internal fun HistoryScreen(
     deviceConfiguration: DeviceConfiguration
 ) {
 
-    if(!state.userLoggedIn) {
+    if(state.userLoggedIn) {
         LazyVerticalStaggeredGrid(
             columns = StaggeredGridCells.Fixed(if (deviceConfiguration.isLargeScreen()) 2 else 1 ),
             modifier = Modifier.fillMaxSize()
